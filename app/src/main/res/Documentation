@@ -1,0 +1,15 @@
+SQLite Android içerisinde yerel (local) olarak veri tabanı oluşturmamıza olanak sağlayan SQL veri tabanından türemiş alt bir sistemdir Android Studio içerisinde bir kütüphane olarak bulunur bizde bu kütüphaneyi kullanarak local veri tabanı işlemlerimizi yaparız.
+
+Android Studio’da uygulama geliştirirken database işlemleri genellikle try/catch blokları arasında icra edilmelidir çünkü database kodlarını yazarken hata yapılması çok olasıdır.
+e.printStackTrace() fonksiyonu karşılaştığımız hatanın detaylarını konsola yazdırmamızı sağlar fakat bildiğimiz üzere catch bloğu çalıştırılıyorsa bu bir hatanın yakalandığına işarettir dolayısıyla oraya çalışacak kodları değil hata yakalanması durumunda çalışmasını istediğimiz kodları yazmalıyız.
+Try bloğu içerisinde de database işlemlerimizi gerçekleştiririz bu kod bloklarının onCreate metodu altında olduğuna dikkat edilmelidir.
+
+Try bloğu içerisinde ilk önce SQLiteDataBase sınıfından (veri tipinden) bir örnek nesne oluşturmamız gerekmektedir (reference name =database) bu referansı initialize ederken içerisinde bulunduğumuz aktiviteye refereans vermek için this anahtar kelimesini kullanırız this.openOrCreateDatabase() fonksiyonunu çağırarak init işlemini gerçekleştiririz adından da anlaşıldığı üzere bu metot mevcut olan database’yi açmak veya yeni bir adet oluşturmak için kullanılır, biz yeni bir adet oluşturacağız.
+openOrCreateDatabse() fonksiyonu database oluşturmak için 3 tane parametre alır bunlardan ilk String veri tipinde olan Ana database ismimizdir bu örnekte “MajorDataBaseName” olarak verilmiştir, 2. Parametre ise konteks modudur bu genellikle private olarak seçilir ve MOD_PRİVATE olarak notasyonize edilir son olarak gelen parametre ise factory tipidir şimdilik bunu null olarak seçeceğiz ilerleyen bölümlerde bu konuya daha detaylı bir şekilde değineceğiz.
+Ana database’mizi oluşturduktan sonra bu ana database altında bir sheet/table (sayfa) oluşturmamız gerekmektedir, şöyle düşünebiliriz ana databaseyi oluşturduğumuzda bir excel dosyası oluşturduk şimdi bu excel dosyası içerisinde bir sayfa oluşturup ilgili sütünlara değer vermemiz gerekmektedir.
+SQLiteDatabase sınıfından tanımlayıp init ettiğimiz “database” referansı üzerinden bu işlemi gerçekleştireceğiz…
+ database.execSQL() fonksiyonu SQLiteDatabase sınıfında yer alan public bir metot olduğundan dolayı bu sınıftan oluşturulan referanslar bu metotda erişebilir execute SQL anlamına gelir ve parametre içerisinde sql kodunu yazacağız.
+database.execSQL("CREATE TABLE IF NOT EXISTS tableName (column1 VARCHAR, colum2 INT)");
+
+CREATE TABLE diyerek tablo(sheet, sayfa) oluşturulacağını bildiriyoruz ve opsiyonel olarak IF NOT EXİST yazarsak daha önce varsa oluşturma diyoruz ardından ise tablo adımızı giriyoruz “tableName” ve bir parantez açarak tablomuz içerisinde olacak sütunların adını ve veri tipini giriyoruz column1 adındaki sütünün veri tipi VARCHAR column2 adındaki sütunun veri tipine de Integer ver tipinde veriler gelecek.
+
