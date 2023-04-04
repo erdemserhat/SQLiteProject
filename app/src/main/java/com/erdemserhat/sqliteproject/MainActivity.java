@@ -27,8 +27,18 @@ public class MainActivity extends AppCompatActivity {
             //database.execSQL("INSERT INTO students (name, age) VALUES ('Ali',31)");
             //database.execSQL("INSERT INTO students (name, age) VALUES ('Volkan',30)");
 
+            //Updating existing data from database
+            //database.execSQL("UPDATE students SET age =50 where name= 'Ali'");
+            //database.execSQL("UPDATE students SET name ='Erdem' where id=1");
+
             //Reading Data, filtering data by using where keyword
-            Cursor cursor = database.rawQuery("SELECT * FROM students where id=3",null);
+            //Cursor cursor = database.rawQuery("SELECT * FROM students ",null);
+            //Cursor cursor = database.rawQuery("SELECT * FROM students WHERE name='Erdem' ",null);
+            //Cursor cursor = database.rawQuery("SELECT * FROM students WHERE id=1",null);
+            //students whose name  ends with letter "m"
+            //Cursor cursor = database.rawQuery("SELECT * FROM students WHERE name LIKE '%m'",null);
+            //names whose name starts with letter "a"
+            Cursor cursor = database.rawQuery("SELECT * FROM students WHERE name LIKE 'a%'",null) ;
 
             int nameIx = cursor.getColumnIndex("name");
             int ageIx = cursor.getColumnIndex("age");
